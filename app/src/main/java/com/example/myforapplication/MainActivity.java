@@ -2,6 +2,7 @@ package com.example.myforapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     EditText et_name, et_age;
     ListView lv_StudentList;
     ArrayAdapter studentArrayAdapter;
-    DataBaseHelper dataBaseHelper;
+    DataBaseHelper1 dataBaseHelper;
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         btn_view = findViewById(R.id.btn_view);
         et_age=findViewById(R.id.et_age);
         et_name = findViewById(R.id.et_name);
-        lv_StudentList = findViewById(R.id.lv_StudentList);
+        lv_StudentList = this.<ListView>findViewById(R.id.lv_StudentList);
 
-        dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        dataBaseHelper = new DataBaseHelper1(MainActivity.this);
         ShowStudentsOnListView(dataBaseHelper);
 
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btn_view.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                dataBaseHelper = new DataBaseHelper1(MainActivity.this);
                 ShowStudentsOnListView(dataBaseHelper);
 
                 //Toast.makeText(MainActivity.this, everyone.toString(), Toast.LENGTH_SHORT).show();
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     studentMod = new StudentMod(-1, "ERROR", 0);
                 }
 
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                DataBaseHelper1 dataBaseHelper = new DataBaseHelper1(MainActivity.this);
                 boolean b = dataBaseHelper.addOne(studentMod);
                 Toast.makeText(MainActivity.this, "SUCCESS= "+ b, Toast.LENGTH_SHORT).show();
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void ShowStudentsOnListView(DataBaseHelper dataBaseHelper) {
+    private void ShowStudentsOnListView(DataBaseHelper1 dataBaseHelper) {
         studentArrayAdapter = new ArrayAdapter<StudentMod>(MainActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
         lv_StudentList.setAdapter(studentArrayAdapter);
     }

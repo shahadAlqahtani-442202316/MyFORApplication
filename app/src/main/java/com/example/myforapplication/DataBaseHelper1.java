@@ -6,6 +6,7 @@ package com.example.myforapplication;
         import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
+        import android.database.sqlite.SQLiteAbortException;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
 
@@ -22,6 +23,10 @@ public class DataBaseHelper1 extends SQLiteOpenHelper {
 
     public DataBaseHelper1(@Nullable Context context) {
         super(context, "student.db", null, 1);
+    }
+
+    public DataBaseHelper1(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
     }
 
     // when creating the database
